@@ -24,6 +24,7 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     path("accounts/", include("accounts.urls")),
     path("", include("todo.urls")),
+    path('api-auth/', include('rest_framework.urls')),
 ]
 
 # Serving static&media files for development
