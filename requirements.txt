@@ -1,6 +1,12 @@
+#general
 django >3.2,<3.3
 python-decouple
 pillow
 djangorestframework
+
+# 3rd party
+
 markdown
 django-filter
+
+# deploy
