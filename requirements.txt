@@ -5,7 +5,7 @@ pillow
 djangorestframework
 
 # 3rd party
-
+drf-yasg[validation]
 markdown
 django-filter
 
