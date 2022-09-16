@@ -21,9 +21,9 @@ urlpatterns = [
     path('profile/',views.ProfileApiView.as_view(),name='profile'),
     # activate
     path('test-email/',views.TestEmailView.as_view(),name='test-email'),
-    # path('activation/confirm/')
+    path('activation/confirm/<str:token>',views.ActivationView.as_view(),name='activation'),
     # reset activate
-    # path('activation/resent/')
+    path('activation/resent/',views.ActivationRestView.as_view(),name='resent'),
     # jwt
     path('jwt/create/', views.CustomTokenObtainPairView.as_view(), name='jwt-create'),
     path('jwt/refresh/', TokenRefreshView.as_view(), name='jwt-refresh'),

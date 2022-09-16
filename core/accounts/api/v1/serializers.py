@@ -1,4 +1,3 @@
-from dataclasses import fields
 from django.core import exceptions
 from rest_framework import serializers
 from accounts.models import Profile, User
@@ -102,3 +101,18 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ['id','email','first_name','last_name','image','description']
         read_only_fields = ['email']
+
+class ActivationRestSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True,)
+
+    def validate(self, attrs):
+        email = attrs.get('email')
+        try:
+            user_obj = User.objects.get(email=email)
+        except User.DoesNotExist:
+            raise serializers.ValidationError('user does not exist')
+        if user_obj.is_verified:
+            raise serializers.ValidationError('user is allready verified')
+        attrs['user'] = user_obj
+
+        return super().validate(attrs)
