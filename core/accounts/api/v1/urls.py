@@ -10,7 +10,8 @@ app_name = 'api-v1'
 urlpatterns = [
      # registration
      path('registration/', views.RegisterationApiView.as_view(), name='registration'),
-
+     #passwd
+     path('password-change/', views.PasswordChangeApiView.as_view(), name='password-change'),
      # login token
      path('token/login/', views.CustomObtainAuthToken.as_view(), name='token-login'),
      path('token/logout/', views.CustomDiscardAuthToken.as_view(), name='token-logout'),
