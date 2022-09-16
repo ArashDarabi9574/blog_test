@@ -10,3 +10,6 @@ markdown
 django-filter
 
 # deploy
+
+# email
+django-mail-templated

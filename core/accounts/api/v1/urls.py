@@ -20,7 +20,10 @@ urlpatterns = [
     # profile
     path('profile/',views.ProfileApiView.as_view(),name='profile'),
     # activate
+    path('test-email/',views.TestEmailView.as_view(),name='test-email'),
+    # path('activation/confirm/')
     # reset activate
+    # path('activation/resent/')
     # jwt
     path('jwt/create/', views.CustomTokenObtainPairView.as_view(), name='jwt-create'),
     path('jwt/refresh/', TokenRefreshView.as_view(), name='jwt-refresh'),
