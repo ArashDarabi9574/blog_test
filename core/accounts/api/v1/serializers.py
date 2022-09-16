@@ -1,6 +1,7 @@
+from dataclasses import fields
 from django.core import exceptions
 from rest_framework import serializers
-from accounts.models import User
+from accounts.models import Profile, User
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import authenticate
 from django.utils.translation import gettext_lazy as _
@@ -49,7 +50,7 @@ class CustomAuthTokenSerializer(serializers.Serializer):
     def validate(self, attrs):
         username = attrs.get('email')
         password = attrs.get('password')
-
+        
         if username and password:
             user = authenticate(request=self.context.get('request'),
                                 username=username, password=password)
@@ -60,10 +61,12 @@ class CustomAuthTokenSerializer(serializers.Serializer):
             if not user:
                 msg = _('Unable to log in with provided credentials.')
                 raise serializers.ValidationError(msg, code='authorization')
+            if not user.is_verified:
+                raise serializers.ValidationError('user is not verfied')
         else:
             msg = _('Must include "username" and "password".')
             raise serializers.ValidationError(msg, code='authorization')
-
+        
         attrs['user'] = user
         return attrs
 
@@ -71,9 +74,13 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     
     def validate(self, attrs):
         validated_data =  super().validate(attrs)
+        if not self.user.is_verified:
+            raise serializers.ValidationError('user is not verfied')
         validated_data['email'] = self.user.email
         validated_data['user_id'] = self.user.id
         return validated_data
+
+
 class PasswordChangeSerializer(serializers.Serializer):
 
     old_password = serializers.CharField(required=True)
@@ -88,3 +95,10 @@ class PasswordChangeSerializer(serializers.Serializer):
         except exceptions.ValidationError as e:
             raise serializers.ValidationError({'new_password': list(e.messages)})
         return super().validate(attrs)
+
+class ProfileSerializer(serializers.ModelSerializer):
+    email = serializers.CharField(source="user.email",read_only=True)
+    class Meta:
+        model = Profile
+        fields = ['id','email','first_name','last_name','image','description']
+        read_only_fields = ['email']
