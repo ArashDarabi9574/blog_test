@@ -16,3 +16,4 @@ django-mail-templated
 
 # reformatting
 black
+flake8
