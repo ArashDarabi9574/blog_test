@@ -128,7 +128,7 @@ class ActivationView(APIView):
           user_obj = User.objects.get(pk=user_id)
           if user_obj.is_verified:
                return Response('your account is allready active')
-               user_obj.is_verified = True
+          user_obj.is_verified = True
           user_obj.save()
           return Response('your account have been created/verified successfully')
 class ActivationRestView(generics.GenericAPIView):
