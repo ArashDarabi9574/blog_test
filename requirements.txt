@@ -17,3 +17,5 @@ django-mail-templated
 # reformatting
 black
 flake8
+pytest
+pytest-djnago
