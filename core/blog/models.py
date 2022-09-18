@@ -1,11 +1,11 @@
-from unicodedata import category
 from django.db import models
-from django.contrib.auth import get_user_model
 
 # getting user model
 # new branch commit
 # User =  get_user_model()
 # Create your models here.
+
+
 class Post(models.Model):
     """
     This's a class to define post for blog app

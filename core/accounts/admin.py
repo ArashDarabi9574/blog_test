@@ -3,6 +3,8 @@ from django.contrib.auth.admin import UserAdmin
 from .models import User, Profile
 
 # Register your models here.
+
+
 class CustomUserAdmin(UserAdmin):
     model = User
     list_display = ("email", "is_staff", "is_superuser", "is_active", "is_verified")
