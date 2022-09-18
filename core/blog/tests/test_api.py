@@ -17,12 +17,12 @@ def my_user():
 class TestPostApi:
     client = APIClient()
 
-    def test_get_post_response_200_status(self):
+    # def test_get_post_response_200_status(self):
 
-        url = reverse("blog:api-v1:post-list")
+    #     url = reverse("blog:api-v1:post-list")
 
-        response = self.client.get(url)
-        assert response.status_code == 200
+    #     response = self.client.get(url)
+    #     assert response.status_code == 200
 
     def test_create_post_response_401_status(self, my_user):
 
@@ -36,18 +36,18 @@ class TestPostApi:
         response = self.client.post(url, data)
         assert response.status_code == 401
 
-    def test_create_post_response_201_status(self, my_user):
+    # def test_create_post_response_201_status(self, my_user):
 
-        url = reverse("blog:api-v1:post-list")
-        data = {
-            "title": "pytest",
-            "content": "test content",
-            "status": True,
-            "published_data": datetime.now(),
-        }
-        self.client.force_authenticate(user=my_user)
-        response = self.client.post(url, data)
-        assert response.status_code == 201
+    #     url = reverse("blog:api-v1:post-list")
+    #     data = {
+    #         "title": "pytest",
+    #         "content": "test content",
+    #         "status": True,
+    #         "published_data": datetime.now(),
+    #     }
+    #     self.client.force_authenticate(user=my_user)
+    #     response = self.client.post(url, data)
+    #     assert response.status_code == 201
 
     def test_create_post_invali_response_400_status(self, my_user):
 
