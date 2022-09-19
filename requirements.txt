@@ -8,6 +8,7 @@ djangorestframework
 drf-yasg[validation]
 markdown
 django-filter
+django-cors-headers
 
 # deploy
 
