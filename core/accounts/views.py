@@ -4,7 +4,7 @@ from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from django.contrib.auth import login
 from django.shortcuts import redirect
-
+from .task import sendemail
 # Create your views here.
 
 
