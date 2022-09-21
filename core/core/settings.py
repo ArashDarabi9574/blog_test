@@ -153,6 +153,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "accounts.User"
 LOGIN_URL = "/accounts/login"
 
+# rest_framework
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.BasicAuthentication",
@@ -162,6 +163,7 @@ REST_FRAMEWORK = {
     ]
 }
 
+# jwt authentication configuration
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_USE_TLS = False
 EMAIL_HOST = "smtp4dev"
@@ -169,4 +171,8 @@ EMAIL_HOST_USER = ""
 EMAIL_HOST_PASSWORD = ""
 EMAIL_PORT = 25
 
+# cros free
 CORS_ALLOWED_ALL_ORIGINS = True
+
+# celery
+CELERY_BROKER_URL = "redis://redis:6379/1"

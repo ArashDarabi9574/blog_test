@@ -1,6 +1,7 @@
 version: "3.9"
 
 services:
+
   backend:
     build: .
     container_name: backend
@@ -12,6 +13,14 @@ services:
     environment:
       - SECRET_KEY=test
       - DEBUG=True
+
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+    - "6380:6379"
+    command: redis-server --save 60 1 --loglevel warning
+
   smtp4dev:
     image: rnwood/smtp4dev:v3
     restart: always
@@ -26,5 +35,10 @@ services:
         - smtp4dev-data:/smtp4dev
     environment:
       - ServerOptions__HostName=smtp4dev
+      
 volumes:
   smtp4dev-data:
+
+
+
+  
