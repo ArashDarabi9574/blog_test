@@ -5,9 +5,14 @@ from django.urls import reverse_lazy
 from django.contrib.auth import login
 from django.shortcuts import redirect
 from .task import sendemail
+from django.http import HttpResponse
 # Create your views here.
 
 
+def send_email(request):
+    sendemail.delay()
+    return HttpResponse("Done!!!!!!!!!!!!!")
+    
 class CustomLoginView(LoginView):
     template_name = "accounts/login.html"
     fields = "username", "password"
