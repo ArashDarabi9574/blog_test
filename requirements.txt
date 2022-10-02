@@ -11,7 +11,7 @@ django-filter
 django-cors-headers
 
 # deploy
-
+gunicorn
 # email
 django-mail-templated
 djangorestframework-simplejwt
