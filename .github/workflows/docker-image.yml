@@ -9,13 +9,35 @@ on:
 
 jobs:
 
-  build:
-
+  Test:
+    name: test
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: setup docker-compose
       run: docker compose up -d
     - name: run flake8
       run: docker exec backend sh -c "flake8 ."
+
+  Deploy:
+    if: ${{ always() && contains(join(needs.*.result, ','), 'success') }} 
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    name: Deploy
+    needs: Test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: connect_and_execute
+      uses: appleboy/ssh-action@master
+      with:
+        username: ${{secrets.USERNAME}}
+        password: ${{secrets.PASSWORD}}
+        host: ${{secrets.HOST}}
+        port: ${{secrets.PORT}}
+        script: |
+          cd ${{secrets.PROJECT_PATH}}
+          docker compose -f docker-compose-stage.yml stop
+          git pull
+          docker compose -f docker-compose-stage.yml restart
